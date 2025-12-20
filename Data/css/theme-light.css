@@ -1,0 +1,43 @@
+/* theme-light.css: Светлая тема (Light Theme) */
+
+/* Переопределение переменных для светлой темы */
+[data-bs-theme="light"] {
+    /* Основные цвета */
+    --bs-body-bg: #f8f9fa; /* Белый/светло-серый фон */
+    --bs-body-color: #212529; /* Темный текст */
+
+    /* Структурные цвета */
+    --sidebar-bg: #e9ecef; /* Очень светлый сайдбар */
+    --content-bg: #ffffff; /* Белый фон контента */
+    --border-color: #dee2e6; /* Мягкие, светлые границы */
+
+    /* Специфические элементы (кнопки, ссылки) */
+    --bs-primary: #007bff; /* Стандартный синий Bootstrap */
+
+    /* Стилизация сайдбара */
+    .sidebar-wrapper .list-group-item {
+        background-color: var(--sidebar-bg);
+        border-color: var(--border-color);
+    }
+
+    .sidebar-wrapper .list-group-item:hover {
+        background-color: #ced4da; /* Светло-серый при наведении */
+    }
+
+    .sidebar-wrapper .list-group-item a {
+        color: #0056b3; /* Насыщенный синий для ссылок */
+    }
+
+    .sidebar-wrapper .list-group-item.bg-secondary {
+        background-color: #6c757d !important; /* Серый заголовок секции */
+        color: #fff;
+    }
+
+    /* Убираем темные стили для Dropdown в хедере (они должны стать светлыми по умолчанию) */
+    .dropdown-menu-dark {
+        --bs-dropdown-bg: #fff;
+        --bs-dropdown-link-color: #212529;
+        --bs-dropdown-link-hover-bg: #e9ecef;
+        --bs-dropdown-divider-bg: #adb5bd;
+    }
+}

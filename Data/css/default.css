@@ -1,0 +1,52 @@
+body {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    background-color: #f4f7f6;
+    color: #333;
+}
+
+.bg-light {
+    background-color: #ffffff !important;
+}
+
+.border-end {
+    border-color: #e0e0e0 !important;
+}
+
+#app h2 {
+    color: #007bff;
+    font-weight: 600;
+}
+
+.card-title a {
+    color: #1a73e8;
+}
+
+.list-group-item.bg-dark {
+    background-color: #3f51b5 !important;
+    border-color: #3f51b5;
+}
+.card-title {
+    font-weight: 600;
+}
+
+.card-title.text-info {
+    color: #17a2b8 !important;
+}
+.card-title.text-success {
+    color: #28a745 !important;
+}
+.card-title.text-warning {
+    color: #ffc107 !important;
+}
+
+.display-6 {
+    font-size: 2.5rem;
+}
+.card {
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}

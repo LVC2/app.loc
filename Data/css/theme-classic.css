@@ -1,0 +1,35 @@
+/* theme-classic.css: Классическая темная тема (Classic Dark Theme) */
+
+/* ВАЖНО: Мы используем data-bs-theme="classic", т.к. "dark" уже используется для нашей первой темы в App.css */
+[data-bs-theme="classic"] {
+    /* Основные цвета (более старая/жесткая темная гамма) */
+    --bs-body-bg: #111111; /* Очень черный фон */
+    --bs-body-color: #e0e0e0; /* Светлый текст */
+
+    /* Структурные цвета */
+    --sidebar-bg: #222222; /* Черный сайдбар */
+    --content-bg: #1c1c1c; /* Чуть светлее, чем основной фон */
+    --border-color: #444444; /* Жесткие, темные границы */
+
+    /* Специфические элементы */
+    --bs-primary: #ffc107; /* Желтый акцент */
+
+    /* Стилизация сайдбара */
+    .sidebar-wrapper .list-group-item {
+        background-color: var(--sidebar-bg);
+        border-color: var(--border-color);
+    }
+
+    .sidebar-wrapper .list-group-item:hover {
+        background-color: #333333;
+    }
+
+    .sidebar-wrapper .list-group-item a {
+        color: #f7e09e; /* Светло-желтый для ссылок */
+    }
+
+    .sidebar-wrapper .list-group-item.bg-secondary {
+        background-color: #333333 !important; /* Темно-серый заголовок секции */
+        color: #fff;
+    }
+}

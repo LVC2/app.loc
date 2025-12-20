@@ -1,0 +1,170 @@
+/* ====================================
+   1. Глобальные настройки и переменные
+   ==================================== */
+:root {
+    --header-height: 56px;
+    --sidebar-width-lg: 250px;
+}
+
+/* Переопределение Bootstrap переменных для Темной темы (Dark Mode) */
+[data-bs-theme="dark"] {
+    --bs-body-bg: #1c1f21; /* Основной тёмный фон (4PDA) */
+    --bs-body-color: #e9ecef;
+    --sidebar-bg: #212529; /* Фон сайдбара (чуть темнее) */
+    --content-bg: #2b3035; /* Фон контента (чуть светлее) */
+    --border-color: #3d434a; /* Границы (Habr) */
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* ====================================
+   2. Структура (Header, Main, Footer)
+   ==================================== */
+
+/* HEADER - Фиксированный и на всю ширину */
+.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%; /* Шапка на всю ширину экрана */
+    z-index: 1030;
+    height: var(--header-height);
+}
+
+/* MAIN WRAPPER (С ОТСТУПОМ) */
+.site-main {
+    margin-top: var(--header-height);
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - var(--header-height));
+    padding: 1rem 0;
+}
+
+/* ЦЕНТРАЛЬНЫЙ КОНТЕЙНЕР (65% на десктопе, используется и в header, и в main) */
+.container-70-percent {
+    max-width: 100%;
+    padding: 0 1rem;
+}
+
+/* Основной блок Vue: Контейнер для Sidebar + Content */
+#app {
+    flex-grow: 1;
+    display: flex;
+    min-height: 100%;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* ====================================
+   3. Медиазапросы (65% ширина)
+   ==================================== */
+@media (min-width: 992px) {
+    .container-70-percent {
+        /* УСТАНОВКА 65% И ЦЕНТРИРОВАНИЕ */
+        max-width: 65% !important; /* Уменьшаем ширину до 65% */
+        margin-left: auto !important;
+        margin-right: auto !important;
+        padding: 0;
+    }
+
+    /* Фиксированная ширина сайдбара для предотвращения скачков */
+    .sidebar-wrapper {
+        flex: 0 0 250px !important;
+        max-width: 250px !important;
+    }
+
+    /* Убеждаемся, что центральный блок поиска центрирован */
+    .header-center {
+        display: flex !important;
+        justify-content: center !important;
+    }
+}
+
+@media (max-width: 991px) {
+    /* На мобильных: Stack колонки */
+    #app {
+        flex-direction: column;
+        border: none;
+    }
+    .site-main {
+        margin-top: auto;
+    }
+    .header-center {
+        display: none !important;
+    }
+    /* На мобильных разрешаем 100% ширину и добавляем боковые отступы */
+    .container-70-percent {
+        max-width: 100% !important;
+        padding: 0 1rem;
+    }
+}
+
+/* ====================================
+   4. Стилизация Sidebar и Контента
+   ==================================== */
+.sidebar-wrapper {
+    flex: 0 0 var(--sidebar-width-lg);
+    max-width: var(--sidebar-width-lg);
+    background-color: var(--sidebar-bg) !important;
+    border-right: 1px solid var(--border-color);
+}
+
+.sidebar-wrapper .list-group-item {
+    background-color: var(--sidebar-bg);
+    border-color: var(--border-color);
+}
+
+.sidebar-wrapper .list-group-item:hover {
+    background-color: #353a3f;
+}
+
+.sidebar-wrapper .list-group-item a {
+    color: #90caf9;
+    text-decoration: none;
+    display: block;
+}
+
+.sidebar-wrapper .list-group-item.bg-secondary {
+    background-color: #3c4146 !important;
+    color: #fff;
+    font-size: 0.9rem;
+}
+
+.content-wrapper {
+    flex-grow: 1;
+    background-color: var(--content-bg) !important;
+    color: var(--bs-body-color);
+}
+
+.small-badge {
+    padding: 0.2em 0.4em;
+    font-size: 0.65em;
+}
+
+/* ====================================
+   5. Стилизация Sidebar Dropdown
+   ==================================== */
+
+/* Стилизация вложенных списков */
+.sidebar-sub-item {
+    background-color: transparent !important;
+    border: none !important;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+    font-size: 0.95em;
+    padding-left: 0; /* Убираем стандартный отступ */
+}
+
+.sidebar-sub-item a {
+    color: #bdbdbd;
+}
+
+.sidebar-sub-item:hover {
+    background-color: #353a3f !important;
+}

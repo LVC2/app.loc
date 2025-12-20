@@ -24,7 +24,6 @@ class Start
     protected Template $template;
     /**
      * Конструктор.
-     * @param string $rootPath Корневой путь приложения.
      */
     public function __construct(string $rootPath)
     {
@@ -36,25 +35,15 @@ class Start
 
     protected function init(): void
     {
-        // 1. Инициализация Database
         $this->db = new Database($this->config->get('database'));
-
-        // 2. Инициализация Cache (заглушка)
         $this->cache = new Cache($this->config->get('cache'));
-
-        // 3. Инициализация Auth
         $this->auth = new Auth($this->db, $this->cache);
-
-        // 4. Инициализация User (зависит от Auth, DB, Cache)
         $this->user = new User($this->db, $this->auth, $this->cache);
-
-        // 5. Инициализация Router (требует объект Start, но обычно не требует User)
         $this->router = new Router($this);
     }
 
     /**
      * Получает корневой путь приложения.
-     * (Исправляет ошибку Cannot access protected property Engine\Start::$rootPath)
      * @return string
      */
     public function getRootPath(): string
@@ -64,12 +53,10 @@ class Start
 
     /**
      * Получает данные о бане пользователя.
-     * (Исправляет ошибку Undefined property: Engine\Start::$ban)
      * @return array
      */
     public function getBanData(): array
     {
-        // Заглушка, используемая в Home.php для передачи в JS
         return [];
     }
     /**
@@ -102,8 +89,6 @@ class Start
      */
     public function getBan(): object
     {
-        // Временно возвращаем объект, который имитирует метод isBanned
-        // Это необходимо, пока не будет реализован реальный класс Ban и его инициализация.
         return new class {
             public function isBanned($fullData = false): ?array {
                 return null;
@@ -112,7 +97,6 @@ class Start
     }
     /**
      * Возвращает экземпляр шаблонизатора (Template).
-     * Используется в View-файлах для получения путей или рендеринга.
      * @return Template
      */
     public function getRender(): Template

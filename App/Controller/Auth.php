@@ -1,7 +1,4 @@
 <?php
-
-// Файл: App/Controller/Auth.php
-
 declare(strict_types=1);
 
 namespace App\Controller;
@@ -19,7 +16,6 @@ class Auth extends Controller
         $filtered = $this->app->filter->auto();
         $model = new \App\Model\AuthModel($this->app);
 
-        // Базовая проверка
         $email = $filtered['email'] ?? '';
         $name = $filtered['name'] ?? '';
         $password = $filtered['password'] ?? '';
@@ -34,7 +30,6 @@ class Auth extends Controller
         if ($result['success']) {
             $this->jsonResponse($result, 201);
         } else {
-            // Если бан, возвращаем 403 Forbidden
             $statusCode = isset($result['ban']) ? 403 : 409;
             $this->jsonResponse($result, $statusCode);
         }
@@ -49,7 +44,7 @@ class Auth extends Controller
         $filtered = $this->app->filter->auto();
         $model = new \App\Model\AuthModel($this->app);
 
-        $login = $filtered['login'] ?? ''; // email или latname
+        $login = $filtered['login'] ?? '';
         $password = $filtered['password'] ?? '';
         $remember = (bool)($filtered['remember'] ?? false);
 
@@ -63,7 +58,6 @@ class Auth extends Controller
         if ($result['success']) {
             $this->jsonResponse($result, 200);
         } else {
-            // Если бан, возвращаем 403 Forbidden
             $statusCode = isset($result['ban']) ? 403 : 401;
             $this->jsonResponse($result, $statusCode);
         }

@@ -1,6 +1,4 @@
 <?php
-// Файл: App/Controller/Codes.php
-
 declare(strict_types=1);
 
 namespace App\Controller;
@@ -9,7 +7,6 @@ use Engine\Core\Controller;
 
 /**
  * Контроллер для раздела "Библиотека кодов".
- * Предоставляет API-эндпоинты для Vue.js.
  */
 class Codes extends Controller
 {
@@ -31,7 +28,6 @@ class Codes extends Controller
      */
     public function index(): void
     {
-        // В режиме Full SPA просто рендерим единственный шаблон-оболочку.
         $this->renderShell('Home.php');
     }
 
@@ -46,7 +42,6 @@ class Codes extends Controller
         $page = (int)($filtered['page'] ?? 1);
         $limit = (int)($filtered['limit'] ?? 20);
 
-        // Передаем все отфильтрованные GET-параметры в качестве фильтров
         $data = $this->model->getPaginatedCodes($page, $limit, $filtered);
 
         $this->jsonResponse([
@@ -83,14 +78,11 @@ class Codes extends Controller
             return;
         }
 
-        $filtered = $this->app->filter->auto();
+        $filtered = $this->app->filter()->auto();
 
-        // В реальном приложении здесь должна быть валидация данных
-
-        // Используем SQL-запрос напрямую для INSERT
-        $title = $this->app->db->connection->real_escape_string($filtered['title'] ?? '');
-        $content = $this->app->db->connection->real_escape_string($filtered['content'] ?? '');
-        $userId = $this->app->user->get('id');
+        $title = $this->app->getDB()->connection()->real_escape_string($filtered['title'] ?? '');
+        $content = $this->app->getDb()->connection()->real_escape_string($filtered['content'] ?? '');
+        $userId = $this->app->getUser()->get('id');
 
         if (empty($title) || empty($content)) {
             $this->jsonResponse(['status' => 'error', 'message' => 'Title and content are required'], 400);
@@ -100,7 +92,7 @@ class Codes extends Controller
         $sql = "INSERT INTO codes (user_id, title, content, created_at, status) 
                 VALUES ({$userId}, '{$title}', '{$content}', NOW(), 1)";
 
-        $this->app->db->query($sql);
+        $this->app->getDB()->query($sql);
         $newId = $this->app->db->last_id();
 
         if ($newId) {
